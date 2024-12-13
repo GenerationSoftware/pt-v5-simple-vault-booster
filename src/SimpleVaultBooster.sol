@@ -97,10 +97,7 @@ contract SimpleVaultBooster is ILiquidationSource, Ownable {
    * @return address Address of the target
    */
   function targetOf(address tokenIn) external returns (address) {
-    if (tokenIn == prizePool.prizeToken()) {
-      return address(prizePool);
-    }
-    return address(0);
+    return address(prizePool);
   }
 
   /**

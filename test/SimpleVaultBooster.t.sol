@@ -95,10 +95,6 @@ contract SimpleVaultBoosterTest is Test {
         assertEq(booster.targetOf(address(prizeToken)), address(prizePool));
     }
 
-    function testTargetOf_invalid() public {
-        assertEq(booster.targetOf(makeAddr("invalidToken")), address(0));
-    }
-
     function testIsLiquidationPair() public {
         assertEq(booster.isLiquidationPair(address(prizeToken), address(liquidationPair)), true);
     }
