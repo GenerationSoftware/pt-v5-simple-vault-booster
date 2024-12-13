@@ -1,91 +1,34 @@
-# Foundry template
+# PoolTogether V5 Simple Vault Booster
 
-Template to kickstart a Foundry project.
+[![Code Coverage](https://github.com/generationsoftware/pt-v5-simple-vault-booster/actions/workflows/coverage.yml/badge.svg)](https://github.com/generationsoftware/pt-v5-simple-vault-booster/actions/workflows/coverage.yml)
+[![built-with openzeppelin](https://img.shields.io/badge/built%20with-OpenZeppelin-3677FF)](https://docs.openzeppelin.com/)
+![MIT license](https://img.shields.io/badge/license-MIT-blue)
 
-## Getting started
+The Simple Vault Booster makes it easy to liquidate any token to boost a Vault's contributions to a Prize Pool.
 
-The easiest way to get started is by clicking the [Use this template](https://github.com/GenerationSoftware/foundry-template/generate) button at the top right of this page.
+# Usage
 
-If you prefer to go the CLI way:
+**Step 1**
 
-```
-forge init my-project --template https://github.com/GenerationSoftware/foundry-template
-```
-
-## Development
-
-### Installation
-
-You may have to install the following tools to use this repository:
-
-- [Foundry](https://github.com/foundry-rs/foundry) to compile and test contracts
-- [direnv](https://direnv.net/) to handle environment variables
-- [lcov](https://github.com/linux-test-project/lcov) to generate the code coverage report
-
-Install dependencies:
+Create a Simple Vault Booster using the Simple Vault Booster Factory for the vault and prize pool you wish.
 
 ```
-npm i
+simpleVaultBoosterFactory.createSimpleVaultBooster(vault, prizePool)
 ```
 
-### Env
+**Step 2**
 
-Copy `.envrc.example` and write down the env variables needed to run this project.
-
-```
-cp .envrc.example .envrc
-```
-
-Once your env variables are setup, load them with:
+Attach a liquidation pair to the newly created Simple Vault Booster for the token you wish to liquidate:
 
 ```
-direnv allow
+simpleVaultBooster.setLiquidationPair(weth, liquidationPair)
 ```
 
-### Compile
+Some liquidation pair options:
 
-Run the following command to compile the contracts:
+- [Time Period Dutch Auction Liquidator](https://github.com/GenerationSoftware/pt-v5-tpda-liquidator)
+- [Fixed Price Liquidator](https://github.com/generationSoftware/pt-v5-fixed-price-liquidator)
 
-```
-npm run compile
-```
+**Step 3**
 
-### Coverage
-
-Forge is used for coverage, run it with:
-
-```
-npm run coverage
-```
-
-You can then consult the report by opening `coverage/index.html`:
-
-```
-open coverage/index.html
-```
-
-### Code quality
-
-[Husky](https://typicode.github.io/husky/#/) is used to run [lint-staged](https://github.com/okonet/lint-staged) and tests when committing.
-
-[Prettier](https://prettier.io) is used to format TypeScript and Solidity code. Use it by running:
-
-```
-npm run format
-```
-
-[Solhint](https://protofire.github.io/solhint/) is used to lint Solidity files. Run it with:
-
-```
-npm run hint
-```
-
-### CI
-
-A default Github Actions workflow is setup to execute on push and pull request.
-
-It will build the contracts and run the test coverage.
-
-You can modify it here: [.github/workflows/coverage.yml](.github/workflows/coverage.yml)
-
-For the coverage to work, you will need to setup the `MAINNET_RPC_URL` repository secret in the settings of your Github repository.
+3. Transfer the given token to the Simple Vault Booster. Liquidation bots will eventually pick it up!
