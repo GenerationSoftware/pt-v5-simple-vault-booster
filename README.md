@@ -6,6 +6,12 @@
 
 The Simple Vault Booster makes it easy to liquidate any token to boost a Vault's contributions to a Prize Pool.
 
+# Deployments
+
+| Chain | Contract |
+|---- | ---- |
+| Base | [SimpleVaultBoosterFactory](https://basescan.org/address/0x8CFFFfFa42407DB9DCB974C2C744425c3e58d832)
+
 # Usage
 
 **Step 1**
