@@ -9,6 +9,7 @@ gas_reports = ["Foo"]
 
 [rpc_endpoints]
 mainnet = "${MAINNET_RPC_URL}"
+base = "${BASE_RPC_URL}"
 arbitrum = "${ARBITRUM_RPC_URL}"
 optimism = "${OPTIMISM_RPC_URL}"
 

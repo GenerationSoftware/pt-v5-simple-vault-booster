@@ -6,7 +6,6 @@ import "forge-std/Test.sol";
 import { 
     SimpleVaultBooster,
     ILiquidationSource,
-    ILiquidationPair,
     IPrizePool,
     IERC20,
     TokenOutInvalid,
@@ -18,7 +17,7 @@ import {
 contract SimpleVaultBoosterTest is Test {
 
     SimpleVaultBooster booster;
-    ILiquidationPair liquidationPair;
+    address liquidationPair;
     address vault;
     IERC20 prizeToken;
     IPrizePool prizePool;
@@ -28,8 +27,7 @@ contract SimpleVaultBoosterTest is Test {
         vault = makeAddr("vault");
         prizePool = IPrizePool(makeAddr("prizePool"));
         vm.mockCall(address(prizePool), abi.encodeWithSelector(prizePool.prizeToken.selector), abi.encode(prizeToken));
-        liquidationPair = ILiquidationPair(makeAddr("liquidationPair"));
-        vm.mockCall(address(liquidationPair), abi.encodeWithSelector(liquidationPair.tokenOut.selector), abi.encode(prizeToken));
+        liquidationPair = makeAddr("liquidationPair");
 
         booster = new SimpleVaultBooster(vault, prizePool, address(this));
         booster.setLiquidationPair(address(prizeToken), liquidationPair);
@@ -44,19 +42,12 @@ contract SimpleVaultBoosterTest is Test {
         address notOwner = makeAddr("notOwner");
         vm.prank(notOwner);
         vm.expectRevert(abi.encodeWithSelector(Ownable.OwnableUnauthorizedAccount.selector, notOwner));
-        booster.setLiquidationPair(address(prizeToken), ILiquidationPair(address(0)));
+        booster.setLiquidationPair(address(prizeToken), address(0));
     }
 
     function testSetLiquidationPair_reset() public {
-        booster.setLiquidationPair(address(prizeToken), ILiquidationPair(address(0)));
+        booster.setLiquidationPair(address(prizeToken), address(0));
         assertEq(address(booster.liquidationPairs(address(prizeToken))), address(0));
-    }
-
-    function testSetLiquidationPair_TokenOutInvalid() public {
-        ILiquidationPair invalidLiquidationPair = ILiquidationPair(makeAddr("invalidLiquidationPair"));
-        vm.mockCall(address(invalidLiquidationPair), abi.encodeWithSelector(invalidLiquidationPair.tokenOut.selector), abi.encode(makeAddr("invalidToken")));
-        vm.expectRevert(abi.encodeWithSelector(TokenOutInvalid.selector));
-        booster.setLiquidationPair(address(prizeToken), invalidLiquidationPair);
     }
 
     function testLiquidatableBalanceOf() public {

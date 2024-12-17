@@ -6,20 +6,19 @@ import { IERC20 } from "openzeppelin/token/ERC20/IERC20.sol";
 import { SafeERC20 } from "openzeppelin/token/ERC20/utils/SafeERC20.sol";
 import { Ownable } from "openzeppelin/access/Ownable.sol";
 import { ILiquidationSource } from "pt-v5-liquidator-interfaces/ILiquidationSource.sol";
-import { ILiquidationPair } from "pt-v5-liquidator-interfaces/ILiquidationPair.sol";
 
-error OnlyLiquidationPair(ILiquidationPair liquidationPair);
+error OnlyLiquidationPair(address liquidationPair);
 error InsufficientBalance();
 error TokenOutInvalid();
 
 /**
  * @title SimpleVaultBooster
- * @notice Boosts a vaults chances to win by liquidating tokens. This contract is a ILiquidationSource and ILiquidationPairs can be added to liquidate any ERC20 held by this contract.
+ * @notice Boosts a vaults chances to win by liquidating tokens. This contract is a ILiquidationSource and addresss can be added to liquidate any ERC20 held by this contract.
  */ 
 contract SimpleVaultBooster is ILiquidationSource, Ownable {
   using SafeERC20 for IERC20;
 
-  mapping(address token => ILiquidationPair liquidationPair) public liquidationPairs;
+  mapping(address token => address liquidationPair) public liquidationPairs;
 
   address public immutable vault;
   IPrizePool public immutable prizePool;
@@ -39,11 +38,9 @@ contract SimpleVaultBooster is ILiquidationSource, Ownable {
    * @param _tokenOut Address of the token that is being liquidated
    * @param _liquidationPair Address of the liquidation pair that will liquidate the token
    */
-  function setLiquidationPair(address _tokenOut, ILiquidationPair _liquidationPair) external onlyOwner {
+  function setLiquidationPair(address _tokenOut, address _liquidationPair) external onlyOwner {
     if (address(_liquidationPair) == address(0)) {
-      liquidationPairs[_tokenOut] = ILiquidationPair(address(0));
-    } else if (_liquidationPair.tokenOut() != _tokenOut) {
-      revert TokenOutInvalid();
+      liquidationPairs[_tokenOut] = address(address(0));
     } else {
       liquidationPairs[_tokenOut] = _liquidationPair;
     }
