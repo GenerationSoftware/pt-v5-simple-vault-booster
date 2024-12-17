@@ -46,9 +46,12 @@ contract SimpleVaultBoosterTest is Test {
 
         assertEq(booster.liquidatableBalanceOf(address(prizeToken)), 10e18);
 
-        booster.transferTokensOut(address(this), address(this), address(prizeToken), 10e18);
+        uint balance = prizeToken.balanceOf(address(prizePool));
 
-        assertEq(prizeToken.balanceOf(address(this)), 10e18);
+        booster.transferTokensOut(address(this), address(prizePool), address(prizeToken), 10e18);
+        booster.verifyTokensIn(address(prizeToken), 10e18, "");
+
+        assertEq(prizeToken.balanceOf(address(prizePool)) - balance, 10e18);
     }
 
 }
