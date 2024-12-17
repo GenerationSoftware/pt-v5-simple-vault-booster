@@ -10,7 +10,7 @@ The Simple Vault Booster makes it easy to liquidate any token to boost a Vault's
 
 | Chain | Contract |
 |---- | ---- |
-| Base | [SimpleVaultBoosterFactory](https://basescan.org/address/0x8CFFFfFa42407DB9DCB974C2C744425c3e58d832)
+| Base | [SimpleVaultBoosterFactory](https://basescan.org/address/0x38449a6b7bb76638452273925c9a2BA818bD130d)
 
 # Usage
 
