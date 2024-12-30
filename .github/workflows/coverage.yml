@@ -8,6 +8,8 @@ env:
 jobs:
   forge:
     environment: ci
+    env: # Or as an environment variable
+      BASE_RPC_URL: ${{ secrets.BASE_RPC_URL }}
     strategy:
       fail-fast: true
     permissions:
@@ -15,8 +17,6 @@ jobs:
     name: Foundry project
     runs-on: ubuntu-latest
     steps:
-      env: # Or as an environment variable
-        BASE_RPC_URL: ${{ secrets.BASE_RPC_URL }}
       - uses: actions/checkout@v3
         with:
           submodules: recursive
