@@ -4,7 +4,6 @@ on: ["push", "pull_request"]
 
 env:
   FOUNDRY_PROFILE: ci
-  BASE_RPC_URL: ci
 
 jobs:
   forge:
@@ -16,6 +15,8 @@ jobs:
     name: Foundry project
     runs-on: ubuntu-latest
     steps:
+      env: # Or as an environment variable
+        BASE_RPC_URL: ${{ secrets.BASE_RPC_URL }}
       - uses: actions/checkout@v3
         with:
           submodules: recursive
