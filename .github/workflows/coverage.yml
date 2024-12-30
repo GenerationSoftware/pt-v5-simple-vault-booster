@@ -4,6 +4,7 @@ on: ["push", "pull_request"]
 
 env:
   FOUNDRY_PROFILE: ci
+  BASE_RPC_URL: ci
 
 jobs:
   forge:
