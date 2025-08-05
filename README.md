@@ -8,10 +8,11 @@ The Simple Vault Booster makes it easy to liquidate any token to boost a Vault's
 
 # Deployments
 
-| Chain | Contract |
-|---- | ---- |
-| Base | [SimpleVaultBoosterFactory](https://basescan.org/address/0x38449a6b7bb76638452273925c9a2BA818bD130d)
-| Optimism | [SimpleVaultBoosterFactory](https://optimistic.etherscan.io/address/0xeFDFB75DE853c3b1a37B521956037f44a35CD176)
+| Chain      | Contract                                                                                                        |
+| ---------- | --------------------------------------------------------------------------------------------------------------- |
+| Base       | [SimpleVaultBoosterFactory](https://basescan.org/address/0x38449a6b7bb76638452273925c9a2BA818bD130d)            |
+| Optimism   | [SimpleVaultBoosterFactory](https://optimistic.etherscan.io/address/0xeFDFB75DE853c3b1a37B521956037f44a35CD176) |
+| Worldchain | [SimpleVaultBoosterFactory](https://worldscan.org/address/0x5fda34ec793b81399c2ac640f52dce6ab9dd0260)           |
 
 # Usage
 
